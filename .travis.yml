@@ -1,0 +1,7 @@
+os: linux
+sudo: false
+before_install: bundle install --path vendor/bundle
+language: ruby
+script: bundle exec cucumber
+notifications:
+  email: false
