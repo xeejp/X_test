@@ -16,10 +16,10 @@ if __name__ == '__main__':
         print(dumps({'data': old, 'host': old['host'], 'participant': old['participant']}))
     elif sys.argv[1] == 'receive':
         old = json.loads(sys.argv[2])
-        recieved = json.loads(sys.argv[3])
+        received = json.loads(sys.argv[3])
         if len(sys.argv) == 3 + 1:
-            old['host'].append(recieved)
+            old['host'].append(received)
         elif len(sys.argv) == 4 + 1:
             ID = sys.argv[4]
-            old['participant'][ID].append(recieved)
+            old['participant'][ID].append(received)
         print(dumps({'data': old, 'host': old['host'], 'participant': old['participant']}))
