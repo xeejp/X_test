@@ -6,15 +6,36 @@ Feature: Run the experiment
         {"data": {"host": [], "participant": {}}, "host": [], "participant": {}}
         """
 
-    Scenario: Join to empty experiment
+    Scenario: Join to empty experiment as participant
         When I successfully run `./script.py join '{"host": [], "participant": {}}' p1`
         Then the output should contain exactly:
         """
         {"data": {"host": [], "participant": {"p1": []}}, "host": [], "participant": {"p1": []}}
         """
 
-    Scenario: Join to not empty experiment
+    Scenario: Join to not empty experiment as participant
         When I successfully run `./script.py join '{"host": [1, 2, 3], "participant": {"p2": [6, 7], "p3": [8]}}' p1`
+        Then the output should contain exactly:
+        """
+        {"data": {"host": [1, 2, 3], "participant": {"p1": [], "p2": [6, 7], "p3": [8]}}, "host": [1, 2, 3], "participant": {"p1": [], "p2": [6, 7], "p3": [8]}}
+        """
+
+    Scenario: Join to already joined experiment as participant
+        When I successfully run `./script.py join '{"host": [1, 2, 3], "participant": {"p1": [], "p2": [6, 7], "p3": [8]}}' p2`
+        Then the output should contain exactly:
+        """
+        {"data": {"host": [1, 2, 3], "participant": {"p1": [], "p2": [6, 7], "p3": [8]}}, "host": [1, 2, 3], "participant": {"p1": [], "p2": [6, 7], "p3": [8]}}
+        """
+
+    Scenario: Join to empty experiment as host
+        When I successfully run `./script.py join '{"host": [], "participant": {}}'`
+        Then the output should contain exactly:
+        """
+        {"data": {"host": [], "participant": {}}, "host": [], "participant": {}}
+        """
+
+    Scenario: Join to already joined experiment as host
+        When I successfully run `./script.py join '{"host": [1, 2, 3], "participant": {"p1": [], "p2": [6, 7], "p3": [8]}}'`
         Then the output should contain exactly:
         """
         {"data": {"host": [1, 2, 3], "participant": {"p1": [], "p2": [6, 7], "p3": [8]}}, "host": [1, 2, 3], "participant": {"p1": [], "p2": [6, 7], "p3": [8]}}
