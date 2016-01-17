@@ -9,16 +9,12 @@ def dumps(data):
 if __name__ == '__main__':
     if len(sys.argv) == 1 + 1 and sys.argv[1] == 'init':
         print(dumps({'data': {'host': [], 'participant': {}}, 'host': [], 'participant': {}}))
-    elif sys.argv[1] == 'join':
-        if len(sys.argv) == 2 + 1:
-            old = json.loads(sys.argv[2])
-            print(dumps({'data': old, 'host': old['host'], 'participant': old['participant']}))
-        elif len(sys.argv) == 3 + 1:
-            old = json.loads(sys.argv[2])
-            ID = sys.argv[3]
-            if ID not in old['participant']:
-                old['participant'][ID] = []
-            print(dumps({'data': old, 'host': old['host'], 'participant': old['participant']}))
+    elif len(sys.argv) == 3 + 1 and sys.argv[1] == 'join':
+        old = json.loads(sys.argv[2])
+        ID = sys.argv[3]
+        if ID not in old['participant']:
+            old['participant'][ID] = []
+        print(dumps({'data': old, 'host': old['host'], 'participant': old['participant']}))
     elif sys.argv[1] == 'receive':
         old = json.loads(sys.argv[2])
         received = json.loads(sys.argv[3])
