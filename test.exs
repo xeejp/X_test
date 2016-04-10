@@ -1,4 +1,6 @@
 defmodule Test do
+  use Xee.ThemeScript
+
   @script Path.join([__DIR__, "script.py"])
 
   def init do
@@ -9,11 +11,11 @@ defmodule Test do
     call(["join", Poison.encode!(data), id])
   end
 
-  def receive(data, received) do
+  def handle_received(data, received) do
     call(["receive", Poison.encode!(data), Poison.encode!(received)])
   end
 
-  def receive(data, received, id) do
+  def handle_received(data, received, id) do
     call(["receive", Poison.encode!(data), Poison.encode!(received), id])
   end
 
